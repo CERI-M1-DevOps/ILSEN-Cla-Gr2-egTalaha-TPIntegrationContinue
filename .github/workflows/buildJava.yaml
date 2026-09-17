@@ -6,7 +6,7 @@ on:
 
 jobs:
   Build:
-    name: Build - Exercice 2
+    name: Build - Exercice 3
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
