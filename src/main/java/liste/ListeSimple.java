@@ -190,4 +190,3 @@ public class ListeSimple {
         r2.setSuivant(suivantR1);
     }
 }
-```
