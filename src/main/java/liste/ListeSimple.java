@@ -1,4 +1,3 @@
-```java
 package liste;
 
 import java.util.Objects;
