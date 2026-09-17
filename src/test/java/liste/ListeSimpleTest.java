@@ -271,4 +271,13 @@ public class ListeSimpleTest {
         listeATester.supprimePremier(99);
         assertEquals("ListeSimple(Noeud(2), Noeud(1))", listeATester.toString());
     }
+
+    @Test
+    public void echangerMemeNoeud() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        Noeud r = listeATester.tete;
+        listeATester.echanger(r, r);
+        assertEquals("ListeSimple(Noeud(2), Noeud(1))", listeATester.toString());
+    }
 }
