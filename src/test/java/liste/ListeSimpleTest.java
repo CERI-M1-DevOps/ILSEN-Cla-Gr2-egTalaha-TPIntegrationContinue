@@ -255,4 +255,35 @@ public class ListeSimpleTest {
         System.out.println(listeATester);
         assertEquals(listeATester.toString(), "ListeSimple(Noeud(4), Noeud(2), Noeud(3), Noeud(1), Noeud(5))");
     }
+
+    @Test
+    public void echangerLePremierEnSecondArgumentNoeudAvecUnAutre() {
+        listeATester.ajout(5);
+        listeATester.ajout(4);
+        Noeud r1 = listeATester.tete;
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud r2 = listeATester.tete;
+        assertEquals(listeATester.toString(), "ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))");
+        listeATester.echanger(r1, r2);
+        System.out.println(listeATester);
+        assertEquals(listeATester.toString(), "ListeSimple(Noeud(4), Noeud(2), Noeud(3), Noeud(1), Noeud(5))");
+    }
+
+    @Test
+    public void modifiePremierElementAbsent() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        listeATester.modifiePremier(99, 4);
+        assertEquals("ListeSimple(Noeud(2), Noeud(1))", listeATester.toString());
+    }
+
+    @Test
+    public void supprimePremierElementAbsent() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        listeATester.supprimePremier(99);
+        assertEquals("ListeSimple(Noeud(2), Noeud(1))", listeATester.toString());
+    }
 }
