@@ -2,6 +2,7 @@ name: Java CI with Maven - Test and package
 
 on:
   pull_request:
+    types: [opened]
     branches: [ main ]
 
 jobs:
