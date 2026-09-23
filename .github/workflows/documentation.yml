@@ -1,0 +1,45 @@
+name: Documentation Javadoc
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ closed ] # PR fermée : fusionnée ou non, filtré par le "if" du job
+
+permissions:
+  contents: write # nécessaire pour pousser sur la branche gh-pages
+
+jobs:
+  Documentation:
+    name: Génération et déploiement de la Javadoc
+    if: github.event.pull_request.merged == true # uniquement si la PR a été fusionnée
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache des dépendances Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+
+      - name: Génération de la Javadoc
+        run: mvn -B javadoc:javadoc
+
+      - name: Recherche du dossier de la Javadoc
+        id: apidocs
+        run: echo "dir=$(find target -type d -name apidocs | head -n 1)" >> "$GITHUB_OUTPUT"
+
+      - name: Déploiement sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ steps.apidocs.outputs.dir }}
